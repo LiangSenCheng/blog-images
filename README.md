@@ -2,8 +2,8 @@
 
  * https://cdn.jsdelivr.net/gh/LiangSenCheng/blog-images/images/ 
 
- * https://cdn.jsdelivr.net/gh/LiangSenCheng/blog-images/list.json/ 
+ * https://cdn.jsdelivr.net/gh/LiangSenCheng/blog-images/list.json 
 
- * https://cdn.jsdelivr.net/gh/LiangSenCheng/blog-images/list.txt/ 
+ * https://cdn.jsdelivr.net/gh/LiangSenCheng/blog-images/list.txt 
 
- 2021-08-20 16:04:54
+ 2021-08-20 16:05:58
