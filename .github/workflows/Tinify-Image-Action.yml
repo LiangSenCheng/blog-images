@@ -35,8 +35,6 @@ jobs:
           # token: ${{ secrets.BLOG_IIMAGES_ACCESS_TOKEN }}
           # 注意这里的folder: dist 是仓库根目录下的 dist，也就是 npm run build 生成静态资源的路径,也有些是 /public
           folder: .
-          # 构建结果存储的仓库
-          repository-name: blog-images
           # 构建结果存储的分支
           branch: main
           # commit文本内容
