@@ -20,11 +20,16 @@ jobs:
       # 执行目录链接生成js脚本
       - name: Run Genearte Files-link script
         run: |
-          date -R  
+          date -R
+          echo "**********************"
           ls -a
+          echo "**********************"
           ls /
-          ls /scripts
+          echo "**********************"
+          ls ./
+          echo "**********************"
           yarn
+          echo "**********************"
           node /scripts/generate-link.js
       # commit文件更新
       # - name: Deploy
