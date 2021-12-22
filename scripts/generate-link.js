@@ -48,7 +48,7 @@ function updateJson(rootFolder, fileList) {
 function updateReadme(rootFolder) {
   // 文件路径
   const readmeFilePath = path.join(rootFolder, "README.md");
-  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/list.json \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/list.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
+  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/list.json \n\n* ${CONFIG.SOURCE_URL}/list.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
   // 删除旧文件
   fs.rmSync(readmeFilePath, { force: true });
   fs.writeFileSync(readmeFilePath, readmeStr);
