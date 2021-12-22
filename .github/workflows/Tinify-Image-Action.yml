@@ -22,6 +22,8 @@ jobs:
         run: |
           date -R  
           ls -a
+          ls /
+          ls /scripts
           yarn
           node /scripts/generate-link.js
       # commit文件更新
