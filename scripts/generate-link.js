@@ -6,7 +6,7 @@ const timezone = require('dayjs/plugin/timezone');
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const { fileDisplay } = require("./scripts/file-dir");
+const { fileDisplay } = require("./file-dir");
 
 const { CONFIG } = require("./config");
 
