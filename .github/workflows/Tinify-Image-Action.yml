@@ -31,7 +31,6 @@ jobs:
           node ./scripts/generate-link.js
           rm -rf ./node_modules
           rm -rf ./github-pages-deploy-action-temp-deployment-folder
-          echo "*********************"
           ls -a
       # commit文件更新
       - name: Deploy
