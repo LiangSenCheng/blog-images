@@ -1,8 +1,9 @@
 name: Tinify Image Action
 on:
   push:
-    paths:
-      - 'images/**'
+    branches: [main]
+    # paths:
+    #   - 'images/**'
 jobs:
   compress:
     runs-on: ubuntu-latest
