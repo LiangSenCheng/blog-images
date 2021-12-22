@@ -1,6 +1,4 @@
 const CONFIG = {
-  GIT_USERNAME: "Auto-Script", // git.userName
-  GIT_EMAIL: "blog@images.sync", // git.email
   GIT_REF: "main", // git.ref, 即本地的分支
   GIT_REMOTE: "origin", // git.remote
   GIT_DIR: "", // .git的目录路径,若SYS_DIR已经包含.git目录,则GIT_DIR设置为空;
