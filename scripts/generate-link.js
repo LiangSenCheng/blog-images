@@ -34,7 +34,7 @@ function updateJson(rootFolder, fileList) {
   const listObj = {
     list: listData,
     timestamp: new Date().getTime(),
-    updateTime: dayjs(res.data.timestamp).tz("Asia/Shanghai").format("YYYY-MM-DD HH:MM:ss"),
+    updateTime: dayjs().tz("Asia/Shanghai").format("YYYY-MM-DD HH:MM:ss"),
   };
   // 删除旧文件
   fs.rmSync(listJsonFilePath, { force: true });
@@ -61,6 +61,7 @@ async function main() {
   console.log('根目录', rootFolder, process.cwd())
   // 路径列表
   const fileList = fileDisplay(rootFolder);
+  console.log('路径列表', fileList);
   // 更新txt
   updateText(rootFolder, fileList);
   // 更新json
