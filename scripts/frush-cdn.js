@@ -26,7 +26,7 @@ function ignorePathCheck(path) {
 const pathsList = require(`${process.cwd()}/list.json`);
 console.log(pathsList, typeof pathsList)
 
-const list = pathsList.list
+const list = (pathsList.list).concat(`${CONFIG.SOURCE_URL}/list.json`, `${CONFIG.SOURCE_URL}/list.txt`, `${CONFIG.SOURCE_URL}/README.md`)
 
 // 执行结果
 let result = {
@@ -79,4 +79,4 @@ async function frushcdn() {
 }
 
 // 开始执行脚本
-// frushcdn();
+frushcdn();
