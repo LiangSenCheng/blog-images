@@ -21,16 +21,11 @@ jobs:
       - name: Run Genearte Files-link script
         run: |
           date -R
-          echo "**********************"
           ls -a
-          echo "**********************"
-          ls ./
-          echo "**********************"
           ls ./scripts
           echo "**********************"
           yarn
-          echo "**********************"
-          node /scripts/generate-link.js
+          node ./scripts/generate-link.js
       # commit文件更新
       # - name: Deploy
       #   uses: JamesIves/github-pages-deploy-action@4.1.4
