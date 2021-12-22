@@ -24,9 +24,10 @@ function ignorePathCheck(path) {
 };
 
 const pathsList = require(`${process.cwd()}/list.json`);
-console.log(pathsList, typeof pathsList)
 
-const list = (pathsList.list).concat(`${CONFIG.SOURCE_URL}/list.json`, `${CONFIG.SOURCE_URL}/list.txt`, `${CONFIG.SOURCE_URL}/README.md`)
+const list = (pathsList.list).concat(`${CONFIG.SOURCE_URL}/list.json`, `${CONFIG.SOURCE_URL}/list.txt`, `${CONFIG.SOURCE_URL}/README.md`);
+
+console.log(pathsList, typeof pathsList, list)
 
 // 执行结果
 let result = {
