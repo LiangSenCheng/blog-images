@@ -31,20 +31,20 @@ jobs:
           cat list.txt
           cat README.md
       # commit文件更新
-      # - name: Deploy
-      #   uses: JamesIves/github-pages-deploy-action@4.1.4
-      #   with:
-      #     token: ${{ secrets.ACCESS_TOKEN }}
-      #     # 注意这里的folder: dist 是仓库根目录下的 dist，也就是 npm run build 生成静态资源的路径,也有些是 /public
-      #     folder: ./
-      #     # 构建结果存储的仓库
-      #     repository-name: lx164/blog-images
-      #     # 构建结果存储的分支
-      #     branch: main
-      #     # commit文本内容
-      #     commit-message: ${{github.event.head_commit.message}}
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          token: ${{ secrets.BLOG_IIMAGES_ACCESS_TOKEN }}
+          # 注意这里的folder: dist 是仓库根目录下的 dist，也就是 npm run build 生成静态资源的路径,也有些是 /public
+          folder: ./
+          # 构建结果存储的仓库
+          repository-name: lx164/blog-images
+          # 构建结果存储的分支
+          branch: main
+          # commit文本内容
+          commit-message: ${{github.event.head_commit.message}}
       # 执行CDN刷新js脚本
-      # - name: Run Genearte File-link script
-      #   run: |
-      #     ls -a
-      #     node ./scripts/frush-cdn.js
+      - name: Run Genearte File-link script
+        run: |
+          ls -a
+          node ./scripts/frush-cdn.js
