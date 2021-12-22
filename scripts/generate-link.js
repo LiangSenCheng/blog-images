@@ -57,7 +57,7 @@ function updateReadme(rootFolder) {
 
 async function main() {
   // 获取指定目录下的所有文件路径
-  const rootFolder = CONFIG.SYS_DIR ? CONFIG.SYS_DIR : process.cwd();
+  const rootFolder = process.cwd();
   console.log('根目录', rootFolder, process.cwd())
   // 路径列表
   const fileList = fileDisplay(rootFolder);
