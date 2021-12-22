@@ -2,6 +2,7 @@
 node_modules
 dist
 log
+github-pages-deploy-action-temp-deployment-folder
 
 # Log files
 npm-debug.log*

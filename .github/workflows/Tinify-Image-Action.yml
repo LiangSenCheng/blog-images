@@ -18,21 +18,20 @@ jobs:
       #     api_key: ${{ secrets.TINIFY_API_KEY }}
       #     github_token: ${{ secrets.BLOG_IIMAGES_ACCESS_TOKEN }}
       # 执行目录链接生成js脚本
-      - name: Run Genearte Files-link script
+      - name: Run Genearte Files-link Script
         run: |
           date -R
           ls -a
-          ls ./scripts
-          echo "**********************"
           yarn
           node ./scripts/generate-link.js
           rm -rf ./node_modules
           rm -rf ./github-pages-deploy-action-temp-deployment-folder
+          echo "*********************"
+          ls -a
       # commit文件更新
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          # token: ${{ secrets.BLOG_IIMAGES_ACCESS_TOKEN }}
           # 注意这里的folder: dist 是仓库根目录下的 dist，也就是 npm run build 生成静态资源的路径,也有些是 /public
           folder: .
           # 构建结果存储的分支
@@ -40,7 +39,7 @@ jobs:
           # commit文本内容
           commit-message: ${{github.event.head_commit.message}}
       # 执行CDN刷新js脚本
-      - name: Run Genearte File-link script
+      - name: Run Frush Files-link CDN Script
         run: |
           ls -a
           node ./scripts/frush-cdn.js
