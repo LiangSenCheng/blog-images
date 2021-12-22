@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { CONFIG } = require("../config");
+const { CONFIG } = require("./config");
 
 /**
  * 遍历当前目录路径下的文件和目录
