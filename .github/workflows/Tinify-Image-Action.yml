@@ -26,6 +26,10 @@ jobs:
           echo "**********************"
           yarn
           node ./scripts/generate-link.js
+          ls -a
+          cat list.json
+          cat list.txt
+          cat README.md
       # commit文件更新
       # - name: Deploy
       #   uses: JamesIves/github-pages-deploy-action@4.1.4
