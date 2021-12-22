@@ -24,9 +24,9 @@ function ignorePathCheck(path) {
 };
 
 const pathsList = require(`${process.cwd()}/list.json`);
-console.log(pathsList)
+console.log(pathsList, typeof pathsList)
 
-const list = []
+const list = pathsList.list
 
 // 执行结果
 let result = {
