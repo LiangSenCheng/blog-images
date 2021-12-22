@@ -29,7 +29,6 @@ jobs:
           ls -a
           yarn
           node ./scripts/generate-link.js
-          node ./scripts/frush-cdn.js
           rm -rf ./node_modules
           rm -rf ./github-pages-deploy-action-temp-deployment-folder
           ls -a
@@ -43,6 +42,9 @@ jobs:
           branch: main
           # commit文本内容
           commit-message: ${{github.event.head_commit.message}}
+      # 执行CDN刷新js脚本
       - name: Run Frush Files-link CDN Script
         run: |
           ls -a
+          yarn
+          node ./scripts/frush-cdn.js

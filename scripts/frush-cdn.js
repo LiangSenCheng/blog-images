@@ -23,6 +23,11 @@ function ignorePathCheck(path) {
   return res;
 };
 
+const pathsList = require(`${process.cwd()}/list.json`);
+console.log(pathsList)
+
+const list = []
+
 // 执行结果
 let result = {
   total: list.length,
@@ -32,11 +37,6 @@ let result = {
   cdnOriginTime: "",
   formateTime: "",
 };
-
-const pathsList = require(`${process.cwd()}/list.json`);
-console.log(pathsList)
-
-const list = []
 
 async function frushcdn() {
   if (list.length === 0) {
