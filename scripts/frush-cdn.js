@@ -7,9 +7,10 @@ dayjs.extend(timezone);
 
 const { CONFIG } = require("./config");
 
-const pathsList = require(`${process.cwd()}/${CONFIG.DATA_DIR}/list.json`);
 
 const timestampObj = require(`${process.cwd()}/${CONFIG.DATA_DIR}/timestamp.json`);
+
+const pathsList = require(`${process.cwd()}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json`);
 
 const list = [`${CONFIG.SOURCE_URL}/${CONFIG.DATA_DIR}list-${timestampObj.cur}.json`, `${CONFIG.SOURCE_URL}/${CONFIG.DATA_DIR}list-${timestampObj.cur}.txt`, `${CONFIG.SOURCE_URL}/README.md`].concat(pathsList.list);
 
