@@ -1,5 +1,3 @@
-const fs = require("fs");
-const path = require("path");
 const axios = require("axios");
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
@@ -35,15 +33,6 @@ async function frushcdn() {
     result.failList = Array.from(new Set(result.failList));
     result.fail = result.failList.length;
     console.log(result);
-    
-    const logPath = path.join(process.cwd(), `${CONFIG.DATA_DIR}/cdn-log.json`);
-    // // 删除旧log文件
-    // fs.rmSync(logPath, {
-    //   force: true,
-    //   recursive: true
-    // });
-    // 添加新log文件
-    fs.writeFileSync(logPath, JSON.stringify(result));
     return;
   }
   const filePath = list.shift();
