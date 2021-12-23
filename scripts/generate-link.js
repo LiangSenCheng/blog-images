@@ -28,7 +28,7 @@ function generateFileStr() {
     cur
   } = require(filePath);
   const newTimestamp = {
-    pre: cur,
+    pre: cur ? cur : timestamp,
     cur: timestamp
   }
   fs.writeFileSync(filePath, JSON.stringify(newTimestamp));
