@@ -12,15 +12,24 @@ const { fileDisplay } = require("./file-dir");
 const { CONFIG } = require("./config");
 
 /**
+ * 
+ * @param {*} rootFolder 
+ * @param {*} fileList 
+ */
+function generateFileStr() {
+  return new Date().getTime()
+}
+
+/**
  * 更新文件
  */
-function updateText(rootFolder, fileList) {
+function updateText(rootFolder, fileList, fileStr) {
   // 文件路径
-  const listTxtFilePath = path.join(rootFolder, "list.txt");
+  const listTxtFilePath = path.join(rootFolder, `list-${fileStr}.txt`);
   const listData = fileList.reverse().map((item) => `${CONFIG.SOURCE_URL}${item}`);
 
   // 删除旧文件
-  fs.rmSync(listTxtFilePath, { force: true });
+  fs.rmSync(`${path.join(rootFolder, 'data')}`, { force: true, recursive:true });
   // 更新txt
   fs.writeFileSync(listTxtFilePath, `${listData.join("\n")}`, "utf8");
 }
@@ -28,9 +37,9 @@ function updateText(rootFolder, fileList) {
 /**
  * 更新json
  */
-function updateJson(rootFolder, fileList) {
+function updateJson(rootFolder, fileList, fileStr) {
   // 文件路径
-  const listJsonFilePath = path.join(rootFolder, "list.json");
+  const listJsonFilePath = path.join(rootFolder, `list-${fileStr}.json`);
   const listData = fileList.reverse().map((item) => `${CONFIG.SOURCE_URL}${item}`);
   const listObj = {
     list: listData,
@@ -38,17 +47,17 @@ function updateJson(rootFolder, fileList) {
     updateTime: dayjs().format("YYYY-MM-DD HH:MM:ss"),
   };
   // 删除旧文件
-  fs.rmSync(listJsonFilePath, { force: true });
+  fs.rmSync(`${path.join(rootFolder, 'data')}`, { force: true, recursive:true });
   fs.writeFileSync(listJsonFilePath, JSON.stringify(listObj));
 }
 
 /**
  * 更新readme
  */
-function updateReadme(rootFolder) {
+function updateReadme(rootFolder, fileStr) {
   // 文件路径
   const readmeFilePath = path.join(rootFolder, "README.md");
-  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/list.json \n\n* ${CONFIG.SOURCE_URL}/list.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
+  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/data/list-${fileStr}.json \n\n* ${CONFIG.SOURCE_URL}/data/list-${fileStr}.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
   // 删除旧文件
   fs.rmSync(readmeFilePath, { force: true });
   fs.writeFileSync(readmeFilePath, readmeStr);
@@ -59,12 +68,13 @@ async function main() {
   const rootFolder = process.cwd();
   // 路径列表
   const fileList = fileDisplay(rootFolder);
+  const fileStr = generateFileStr()
   // 更新txt
-  updateText(rootFolder, fileList);
+  updateText(rootFolder, fileList, fileStr);
   // 更新json
-  updateJson(rootFolder, fileList);
+  updateJson(rootFolder, fileList, fileStr);
   // 更新readme
-  updateReadme(rootFolder);
+  updateReadme(rootFolder, fileStr);
 }
 
 main();
