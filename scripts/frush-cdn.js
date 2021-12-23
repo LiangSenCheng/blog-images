@@ -43,7 +43,7 @@ async function frushcdn() {
     //   recursive: true
     // });
     // 添加新log文件
-    fs.writeFileSync(logPath, JSON.stringify(result), "utf8");
+    fs.writeFileSync(logPath, JSON.stringify(result));
     return;
   }
   const filePath = list.shift();
