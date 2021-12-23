@@ -26,14 +26,11 @@ jobs:
       - name: Run Genearte Files-link Script
         run: |
           date -R
-          ls -a
           yarn
           node ./scripts/generate-link.js
           rm -rf ./node_modules
           rm -rf ./github-pages-deploy-action-temp-deployment-folder
           ls -a
-          echo ${{ github }}
-          echo $github
       # commit文件更新
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4

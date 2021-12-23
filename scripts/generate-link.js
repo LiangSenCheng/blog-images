@@ -57,10 +57,8 @@ function updateReadme(rootFolder) {
 async function main() {
   // 获取指定目录下的所有文件路径
   const rootFolder = process.cwd();
-  console.log('根目录', rootFolder, process.cwd())
   // 路径列表
   const fileList = fileDisplay(rootFolder);
-  console.log('路径列表', fileList);
   // 更新txt
   updateText(rootFolder, fileList);
   // 更新json
