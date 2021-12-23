@@ -7,9 +7,13 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Shanghai");
 
-const { fileDisplay } = require("./file-dir");
+const {
+  fileDisplay
+} = require("./file-dir");
 
-const { CONFIG } = require("./config");
+const {
+  CONFIG
+} = require("./config");
 
 /**
  * 
@@ -17,29 +21,47 @@ const { CONFIG } = require("./config");
  * @param {*} fileList 
  */
 function generateFileStr() {
-  return new Date().getTime()
+  const timestamp = new Date().getTime();
+  const filePath = `${process.cwd()}/${CONFIG.DATA_DIR}/timestamp.json`;
+  const {
+    pre
+  } = require(filePath);
+  const newTimestamp = {
+    pre: pre,
+    cur: timestamp
+  }
+  fs.writeFileSync(filePath, JSON.stringify());
+  return newTimestamp
 }
 
 /**
- * 更新文件
+ * 更新txt文件
  */
-function updateText(rootFolder, fileList, fileStr) {
-  // 文件路径
-  const listTxtFilePath = path.join(rootFolder, `list-${fileStr}.txt`);
+function updateText(rootFolder, fileList, timestampObj) {
+  // 旧文件路径
+  const oldFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.pre}.txt`);
+  // 新文件路径
+  const newFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.cur}.txt`);
   const listData = fileList.reverse().map((item) => `${CONFIG.SOURCE_URL}${item}`);
 
   // 删除旧文件
-  fs.rmSync(`${path.join(rootFolder, 'data')}`, { force: true, recursive:true });
-  // 更新txt
-  fs.writeFileSync(listTxtFilePath, `${listData.join("\n")}`, "utf8");
+  fs.rmSync(oldFilePath, {
+    force: true,
+    recursive: true
+  });
+  // 添加新txt文件
+  fs.writeFileSync(newFilePath, `${listData.join("\n")}`, "utf8");
 }
 
 /**
  * 更新json
  */
-function updateJson(rootFolder, fileList, fileStr) {
-  // 文件路径
-  const listJsonFilePath = path.join(rootFolder, `list-${fileStr}.json`);
+function updateJson(rootFolder, fileList, timestampObj) {
+  // 旧文件路径
+  const oldFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.pre}.json`);
+  // 新文件路径
+  const newFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json`);
+
   const listData = fileList.reverse().map((item) => `${CONFIG.SOURCE_URL}${item}`);
   const listObj = {
     list: listData,
@@ -47,19 +69,24 @@ function updateJson(rootFolder, fileList, fileStr) {
     updateTime: dayjs().format("YYYY-MM-DD HH:MM:ss"),
   };
   // 删除旧文件
-  fs.rmSync(`${path.join(rootFolder, 'data')}`, { force: true, recursive:true });
-  fs.writeFileSync(listJsonFilePath, JSON.stringify(listObj));
+  fs.rmSync(oldFilePath, {
+    force: true,
+    recursive: true
+  });
+  fs.writeFileSync(newFilePath, JSON.stringify(listObj));
 }
 
 /**
  * 更新readme
  */
-function updateReadme(rootFolder, fileStr) {
+function updateReadme(rootFolder, timestampObj) {
   // 文件路径
   const readmeFilePath = path.join(rootFolder, "README.md");
-  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/data/list-${fileStr}.json \n\n* ${CONFIG.SOURCE_URL}/data/list-${fileStr}.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
+  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
   // 删除旧文件
-  fs.rmSync(readmeFilePath, { force: true });
+  fs.rmSync(readmeFilePath, {
+    force: true
+  });
   fs.writeFileSync(readmeFilePath, readmeStr);
 }
 
@@ -68,13 +95,13 @@ async function main() {
   const rootFolder = process.cwd();
   // 路径列表
   const fileList = fileDisplay(rootFolder);
-  const fileStr = generateFileStr()
+  const timestampObj = generateFileStr()
   // 更新txt
-  updateText(rootFolder, fileList, fileStr);
+  updateText(rootFolder, fileList, timestampObj);
   // 更新json
-  updateJson(rootFolder, fileList, fileStr);
+  updateJson(rootFolder, fileList, timestampObj);
   // 更新readme
-  updateReadme(rootFolder, fileStr);
+  updateReadme(rootFolder, timestampObj);
 }
 
 main();
