@@ -20,7 +20,7 @@ const {
  * @param {*} rootFolder 
  * @param {*} fileList 
  */
-function generateFileStr() {
+function generateFileStr(rootFolder) {
   const timestamp = new Date().getTime();
   const filePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/timestamp.json`);
   const {
