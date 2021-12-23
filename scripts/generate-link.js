@@ -30,7 +30,7 @@ function generateFileStr() {
     pre: pre,
     cur: timestamp
   }
-  fs.writeFileSync(filePath, JSON.stringify());
+  fs.writeFileSync(filePath, JSON.stringify(newTimestamp));
   return newTimestamp
 }
 
