@@ -24,10 +24,11 @@ function generateFileStr() {
   const timestamp = new Date().getTime();
   const filePath = `${process.cwd()}/${CONFIG.DATA_DIR}/timestamp.json`;
   const {
-    pre
+    pre,
+    cur
   } = require(filePath);
   const newTimestamp = {
-    pre: pre,
+    pre: cur,
     cur: timestamp
   }
   fs.writeFileSync(filePath, JSON.stringify(newTimestamp));
