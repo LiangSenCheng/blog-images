@@ -1,4 +1,4 @@
-name: Tinify Image Action
+name: Auto Tinify And CDN Image Action
 on:
   push:
     branches: [main]
@@ -41,7 +41,7 @@ jobs:
           # 构建结果存储的分支
           branch: main
           # commit文本内容
-          commit-message: ${{github.event.head_commit.message}}
+          # commit-message: ${{github.event.head_commit.message}}
       # 执行CDN刷新js脚本
       - name: Run Frush Files-link CDN Script
         run: |
