@@ -22,7 +22,7 @@ const {
  */
 function generateFileStr() {
   const timestamp = new Date().getTime();
-  const filePath = `${process.cwd()}/${CONFIG.DATA_DIR}/timestamp.json`;
+  const filePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/timestamp.json`);
   const {
     pre,
     cur
@@ -96,7 +96,7 @@ async function main() {
   const rootFolder = process.cwd();
   // 路径列表
   const fileList = fileDisplay(rootFolder);
-  const timestampObj = generateFileStr()
+  const timestampObj = generateFileStr(rootFolder)
   // 更新txt
   updateText(rootFolder, fileList, timestampObj);
   // 更新json
