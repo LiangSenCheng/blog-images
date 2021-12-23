@@ -5,7 +5,9 @@ const timezone = require('dayjs/plugin/timezone');
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const { CONFIG } = require("./config");
+const {
+  CONFIG
+} = require("./config");
 
 
 const timestampObj = require(`${process.cwd()}/${CONFIG.DATA_DIR}/timestamp.json`);
@@ -31,6 +33,15 @@ async function frushcdn() {
     result.failList = Array.from(new Set(result.failList));
     result.fail = result.failList.length;
     console.log(result);
+    
+    const logPath = `${process.cwd()}/${CONFIG.DATA_DIR}/cdn-log.json`
+    // 删除旧文件
+    fs.rmSync(logPath, {
+      force: true,
+      recursive: true
+    });
+    // 添加新txt文件
+    fs.writeFileSync(logPath, JSON.stringify(result), "utf8");
     return;
   }
   const filePath = list.shift();
