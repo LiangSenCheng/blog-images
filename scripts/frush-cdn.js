@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const axios = require("axios");
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
@@ -7,27 +5,13 @@ const timezone = require('dayjs/plugin/timezone');
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-
 const { CONFIG } = require("./config");
-
-/**
- * 检测是否为忽略path/file
- * @param {*} path 
- * @returns 
- */
-function ignorePathCheck(path) {
-  const ignorePath = [".git", ".github", ".history", "node_modules", "check-file-dir.js", ".lock", ".md", ".gitignore"];
-  const res = ignorePath.some(item => {
-    return path.includes(item);
-  });
-  return res;
-};
 
 const pathsList = require(`${process.cwd()}/list.json`);
 
-const list = (pathsList.list).concat(`${CONFIG.SOURCE_URL}/list.json`, `${CONFIG.SOURCE_URL}/list.txt`, `${CONFIG.SOURCE_URL}/README.md`);
+const list = [`${CONFIG.SOURCE_URL}/list.json`, `${CONFIG.SOURCE_URL}/list.txt`, `${CONFIG.SOURCE_URL}/README.md`].concat(pathsList.list);
 
-console.log(pathsList, typeof pathsList, list)
+console.log(list)
 
 // 执行结果
 let result = {
