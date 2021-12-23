@@ -50,7 +50,7 @@ async function frushcdn() {
   let state = "";
   try {
     // 上面的请求也可以这样做
-    const res = await axios.get(`${CONFIG.SOURCE_URL}${filePath}`, {});
+    const res = await axios.get(`${CONFIG.FRUSH_CDN_URL}${filePath}`, {});
     result.cdnOriginTime = res.data.timestamp;
     result.formateTime = dayjs(res.data.timestamp).tz("Asia/Shanghai").format("YYYY-MM-DD HH:MM:ss");
     if (res.status === 200) {
