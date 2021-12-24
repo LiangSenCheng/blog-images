@@ -16,7 +16,7 @@ const {
 } = require("./config");
 
 /**
- * 
+ * 脚本执行时间戳记录
  * @param {*} rootFolder 
  * @param {*} fileList 
  */
@@ -43,7 +43,7 @@ function updateText(rootFolder, fileList, timestampObj) {
   const oldFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.pre}.txt`);
   // 新文件路径
   const newFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.cur}.txt`);
-  const listData = fileList.reverse().map((item) => `${CONFIG.SOURCE_URL}${item}`);
+  const listData = fileList.reverse().map((item) => `${CONFIG.JD_SOURCE_URL}${item}`);
 
   // 删除旧文件
   fs.rmSync(oldFilePath, {
@@ -63,7 +63,7 @@ function updateJson(rootFolder, fileList, timestampObj) {
   // 新文件路径
   const newFilePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json`);
 
-  const listData = fileList.reverse().map((item) => `${CONFIG.SOURCE_URL}${item}`);
+  const listData = fileList.reverse().map((item) => `${CONFIG.JD_SOURCE_URL}${item}`);
   const listObj = {
     list: listData,
     timestamp: new Date().getTime(),
@@ -78,12 +78,33 @@ function updateJson(rootFolder, fileList, timestampObj) {
 }
 
 /**
+ * 更新cloudflare链接的json
+ */
+ function updateCloudflareJson(rootFolder, fileList) {
+  // 文件路径
+  const filePath = path.join(rootFolder, `${CONFIG.DATA_DIR}/cloudflare-list.json`);
+
+  const listData = fileList.reverse().map((item) => `${CONFIG.CL_SOURCE_URL}${item}`);
+  const listObj = {
+    list: listData,
+    timestamp: new Date().getTime(),
+    updateTime: dayjs().format("YYYY-MM-DD HH:MM:ss"),
+  };
+  // 删除旧文件
+  fs.rmSync(filePath, {
+    force: true,
+    recursive: true
+  });
+  fs.writeFileSync(filePath, JSON.stringify(listObj));
+}
+
+/**
  * 更新readme
  */
 function updateReadme(rootFolder, timestampObj) {
   // 文件路径
   const readmeFilePath = path.join(rootFolder, "README.md");
-  const readmeStr = `# blog-images \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json \n\n* ${CONFIG.SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.txt \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
+  const readmeStr = `# blog-images \n\n* ${CONFIG.JD_SOURCE_URL}/${CONFIG.IMG_DIR}/ \n\n* ${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json \n\n* ${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.txt \n\n* ${CONFIG.CL_SOURCE_URL}/${CONFIG.DATA_DIR}/cloudflare-list.json \n\n${dayjs().format("YYYY-MM-DD HH:MM:ss")}`;
   // 删除旧文件
   fs.rmSync(readmeFilePath, {
     force: true
@@ -101,6 +122,8 @@ async function main() {
   updateText(rootFolder, fileList, timestampObj);
   // 更新json
   updateJson(rootFolder, fileList, timestampObj);
+  // 更新cloudflare链接的json
+  updateCloudflareJson(rootFolder, fileList);
   // 更新readme
   updateReadme(rootFolder, timestampObj);
 }
