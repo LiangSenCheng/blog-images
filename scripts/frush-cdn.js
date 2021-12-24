@@ -14,7 +14,7 @@ const timestampObj = require(`${process.cwd()}/${CONFIG.DATA_DIR}/timestamp.json
 
 const pathsList = require(`${process.cwd()}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json`);
 
-const list = [`${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}list-${timestampObj.cur}.json`, `${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}list-${timestampObj.cur}.txt`, `${CONFIG.JD_SOURCE_URL}/README.md`].concat(pathsList.list);
+const list = [`${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.json`, `${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}/list-${timestampObj.cur}.txt`, `${CONFIG.JD_SOURCE_URL}/${CONFIG.DATA_DIR}/cloudflare-list.json`, `${CONFIG.JD_SOURCE_URL}/README.md`].concat(pathsList.list);
 
 console.log(list)
 
